@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <a href="{{url_for('manager_blueprint.add_auto', uuid=client_uuid)}}" class="btn btn-primary">Добавить</a>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% if list_auto %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Марка</th>
+                    <th scope="col">Номер</th>
+                    <th scope="col">Вин номер</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for auto in list_auto %}
+                        <tr>
+                          <td>{{auto.model}}</td>
+                          <td>{{auto.brand}}</td>
+                          <td>{{auto.number}}:{{auto.region}}</td>
+                          <td>{{auto.vin_number}}</td>
+                          <td><a href="{{url_for('manager_blueprint.update_auto', uuid=client_uuid, uuid_auto=auto.trace_id)}}" class="btn btn-danger">Редактировать</a></td>
+                          <td><a href="{{url_for('manager_blueprint.delete_auto', uuid=client_uuid, uuid_auto=auto.trace_id)}}" class="btn btn-danger">Удалить</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        {% else %}
+            <h1>Пользователей нет</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

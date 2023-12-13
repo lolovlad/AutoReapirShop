@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{action}}" method="POST", class="form__sigup">
+    {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger" role="alert">
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+    {% endfor %}
+    {{ form.hidden_tag() }}
+    <div class="col">
+        {{ form.auto.label(class_="form-label") }}
+        {{ form.auto(class_="form-select") }}
+    </div>
+    <div class="col">
+        {{ form.services.label(class_="form-label") }}
+        {{ form.services(class_="form-select") }}
+    </div>
+    <div class="col">
+        {{ form.auto_mechanic.label(class_="form-label") }}
+        {{ form.auto_mechanic(class_="form-select") }}
+    </div>
+    <div class="col">
+        {{ form.state_order.label(class_="form-label") }}
+        {{ form.state_order(class_="form-select") }}
+    </div>
+    <div class="col">
+        {{ form.description.label(class_="form-label") }}
+        {{ form.description(class_="form-control", rows="3") }}
+    </div>
+    <div class="row form__pad">
+        <div class="col-md-1">
+            {{ form.submit(class_="btn btn-primary") }}
+            <a href="{{url_for('manager_blueprint.client')}}" class="btn btn-primary">Отмена</a>
+        </div>
+    </div>
+</form>
+{% endblock %}

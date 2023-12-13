@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h5>{{service.service.name}}</h5>
+            <p>{{service.service.type}}</p>
+            <p>цена {{service.service.price}}</p>
+            <form method="POST" action="{{url_for('manager_blueprint.update_service_order', id_order=service.id_order, id_service=service.id_service)}}">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    {{ form.count.label(class_="form-label") }}
+                    {{ form.count(class_="form-control", rows="3", min="1") }}
+                </div>
+                {{ form.submit(class_="btn btn-primary") }}
+                <a href="{{url_for('manager_blueprint.back_order',  id_order=service.id_order)}}" class="btn btn-danger">Отмена</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

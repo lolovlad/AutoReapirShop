@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h1>Номер заказа</h1>
+        <h3>{{order.trace_id}}</h3>
+    </div>
+    <div class="row">
+        {% for prod in order.services %}
+        <div class="col-12 prod_card">
+            <div class="row">
+                <div class="col-4">
+                    <h5>{{prod.service.name}}</h5>
+                </div>
+                <div class="col-2">
+                    <p>тип: {{prod.service.type.name}}</p>
+                </div>
+                <div class="col-1">
+                    <p>кол: {{prod.count}}</p>
+                </div>
+                <div class="col-3">
+                    <p>общаяя цена: {{prod.count * prod.price}}</p>
+                </div>
+                <div class="col-2">
+                    <p><a href="{{url_for('manager_blueprint.update_service_order', id_order=order.id, id_service=prod.service.id)}}" class="btn btn-danger">Редактировать</a></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+       <h1>Информация о заказе</h1>
+       <p>Время заказа: {{order.datatime_order}}</p>
+       <p>Автомеханник: {{ order.auto_mechanic }}</p>
+       <p>Авто: {{ order.auto }}</p>
+       <p>Статус заказа: {{order.state_order.name}}</p>
+       <p>Описание: {{order.description}}</p>
+    </div>
+    <div class="row">
+        <p><a href="{{url_for('manager_blueprint.update_order',  uuid=order.trace_id)}}" class="btn btn-danger">Редактировать</a></p>
+    </div>
+</div>
+{% endblock %}

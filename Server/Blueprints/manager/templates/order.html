@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% if list_order %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Клиент</th>
+                    <th scope="col">Автомеханник</th>
+                    <th scope="col">Авто</th>
+                    <th scope="col">Статус</th>
+                    <th scope="col">Услуги</th>
+                    <th scope="col">Время</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for order in list_order %}
+                        <tr>
+                          <td>{{order.client}}</td>
+                          <td>{{order.auto_mechanic}}</td>
+                          <td>{{order.auto}}</td>
+                          <td>{{order.state_order.name}}</td>
+                          <td>{% for i in order.services %}
+                            {{i}}
+                            {% endfor %}</td>
+                          <td>{{order.datatime_order}}</td>
+                          <td><a href="{{url_for('manager_blueprint.details_order',  uuid=order.trace_id)}}" class="btn btn-danger">Подробнее</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        {% else %}
+            <h1>Пользователей нет</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

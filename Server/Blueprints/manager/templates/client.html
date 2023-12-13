@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <a href="{{url_for('manager_blueprint.add_client')}}" class="btn btn-primary">Добавить</a>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        {% if clients %}
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамили</th>
+                    <th scope="col">Отчесвто</th>
+                    <th scope="col">Телефон</th>
+                    <th scope="col">Почта</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for client in clients %}
+                        <tr>
+                          <td>{{client.name}}</td>
+                          <td>{{client.surname}}</td>
+                          <td>{{client.patronymics}}</td>
+                          <td>{{client.phone}}</td>
+                          <td>{{client.email}}</td>
+                          <td><a href="{{url_for('manager_blueprint.update_client',  uuid=client.trace_id)}}" class="btn btn-danger">Редактировать</a></td>
+                          <td><a href="{{url_for('manager_blueprint.delete_client',  uuid=client.trace_id)}}" class="btn btn-danger">Удалить</a></td>
+                          <td><a href="{{url_for('manager_blueprint.auto',  uuid=client.trace_id)}}" class="btn btn-danger">Авто</a></td>
+                          <td><a href="{{url_for('manager_blueprint.add_order',  uuid=client.trace_id)}}" class="btn btn-danger">+ Заказ</a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+        {% else %}
+            <h1>Пользователей нет</h1>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
