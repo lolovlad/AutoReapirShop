@@ -3,6 +3,15 @@
 {% block content %}
 
 <form action="{{url_for('login')}}" method="POST", class="form__sigin">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     {{ form.hidden_tag() }}
     <div class="mb-3">
         {{ form.email.label(class_="form-label") }}

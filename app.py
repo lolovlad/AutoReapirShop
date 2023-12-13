@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 
@@ -86,10 +86,13 @@ def login():
             login_service = LoginService()
             user = login_service.login_user(form.email.data, form.password.data)
             if user is None:
+                flash("Почта или пароль набраны неправильно")
                 return redirect(url_for("login"))
             login_user(UserSession(user))
             return redirect(url_for("index"))
-        return redirect(url_for("login"))
+        else:
+            flash("Почта или пароль набраны неправильно")
+            return redirect(url_for("login"))
 
 
 @app.route("/init_app/<password>", methods=["GET"])
