@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_migrate import Migrate
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from flask_babel import Babel
 
 from settings import settings
 
@@ -49,6 +50,13 @@ route = {
     "admin": "/admin",
     "user": "/"
 }
+
+
+def get_locale():
+    return session.get("lang", "ru")
+
+
+babel = Babel(app, locale_selector=get_locale)
 
 
 @login_manager.user_loader

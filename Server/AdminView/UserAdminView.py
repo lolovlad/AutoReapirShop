@@ -7,7 +7,6 @@ from re import search
 from flask import flash
 
 
-
 class UserAdminView(ModelView):
     excluded_list_columns = ("password_hash", )
     form_extra_fields = {

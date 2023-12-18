@@ -9,6 +9,18 @@ class ServiceAdminView(ModelView):
         'price',
         'type',
     ]
+    form_excluded_columns = ['trace_id']
+    form_labels = {
+        'name': "Название",
+        'price': "Цена",
+        'type': "Тип",
+    }
+
+    column_labels = dict(name='Название',
+                         price='Цена',
+                         type="Тип")
+
+    column_exclude_list = ['trace_id']
 
     def on_model_change(self, form, model: Service, is_created):
         model.trace_id = str(uuid4())
